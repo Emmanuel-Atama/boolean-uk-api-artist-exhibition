@@ -10,6 +10,8 @@ const app = express()
 const addressRouter = require("./resources/address/router")
 const exhibitionRouter = require("./resources/exhibition/router")
 const artistRouter = require("./resources/artist/router")
+const ticketRouter = require("./resources/ticket/router")
+const customerRouter = require("./resources/customer/router")
 
 /* SETUP MIDDLEWARE */
 
@@ -21,9 +23,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan("dev"))
 
 /* SETUP ROUTES */
-app.use("address", addressRouter)
-app.use("exhibition", exhibitionRouter)
-app.use("artist", artistRouter)
+app.use("/address", addressRouter)
+app.use("/exhibition", exhibitionRouter)
+app.use("/artist", artistRouter)
+app.use("/ticket", ticketRouter)
+app.use("./customer", customerRouter)
 
 app.get("*", (req, res) => {
   res.json({ ok: true })

@@ -26,6 +26,7 @@ model Exhibition {
   address   Address                @relation(fields: [addressId], references: [id])
   addressId Int
   artists   ExhibitionsOnArtists[]
+  Ticket    Ticket[]
 }
 
 model Artist {
@@ -44,4 +45,19 @@ model ExhibitionsOnArtists {
   createdBy    String
 
   @@id([exhibitionId, artistId])
+}
+
+model Ticket {
+  id           Int        @id @default(autoincrement())
+  price        Float
+  exhibition   Exhibition @relation(fields: [exhibitionId], references: [id])
+  exhibitionId Int
+  customer     Customer   @relation(fields: [customerId], references: [id])
+  customerId   Int
+}
+
+model Customer {
+  id    Int    @id @default(autoincrement())
+  email String
+  Ticket Ticket[]
 }

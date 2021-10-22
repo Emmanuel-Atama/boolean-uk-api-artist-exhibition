@@ -3,8 +3,8 @@ const prisma = require("../../utils/database")
 const getAll = async (req, res) => {
   console.log("working")
     try {
-        const exhibition = await prisma.exhibition.findMany()
-        res.json({ data: exhibition })
+        const customer = await prisma.customer.findMany()
+        res.json({ data: customer })
  } catch (error) {
    console.error({error})  
  
