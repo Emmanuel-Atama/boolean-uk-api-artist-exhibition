@@ -12,17 +12,36 @@ generator client {
 }
 
 model Address {
-  id       Int    @id @default(autoincrement())
-  street   String
-  city     String
-  postCode String
+  id         Int          @id @default(autoincrement())
+  street     String
+  city       String
+  postCode   String
   Exhibition Exhibition[]
 }
 
 model Exhibition {
-  id        Int      @id @default(autoincrement())
+  id        Int                    @id @default(autoincrement())
   name      String
   date      DateTime
-  address   Address @relation(fields: [addressId], references: [id])
+  address   Address                @relation(fields: [addressId], references: [id])
   addressId Int
+  artists   ExhibitionsOnArtists[]
+}
+
+model Artist {
+  id          Int                    @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  exhibitions ExhibitionsOnArtists[]
+}
+
+model ExhibitionsOnArtists {
+  exhibition   Exhibition @relation(fields: [exhibitionId], references: [id])
+  exhibitionId Int
+  artist       Artist     @relation(fields: [artistId], references: [id])
+  artistId     Int
+  createdAt    DateTime   @default(now())
+  createdBy    String
+
+  @@id([exhibitionId, artistId])
 }
